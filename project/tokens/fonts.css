@@ -1,0 +1,15 @@
+/* ==========================================================================
+   Orbit — Webfonts
+   Loaded from the Google Fonts CDN. No binary files were provided, so these
+   @import lines pull the intended families directly. For production, self-host
+   the woff2 files and replace these imports with local @font-face rules.
+
+   Families:
+     Bricolage Grotesque — display / wordmark (characterful grotesque)
+     Hanken Grotesk      — UI + body (humanist, legible at small sizes)
+     JetBrains Mono      — numerals, streaks, dates, labels (tabular mono)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');

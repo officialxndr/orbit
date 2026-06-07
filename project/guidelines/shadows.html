@@ -1,0 +1,26 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Elevation" subtitle="Warm, soft shadows + brand glow" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 26px; display: flex; gap: 22px; align-items: center; }
+  .item { text-align: center; flex: 1; }
+  .box { height: 60px; background: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--line); }
+  .tok { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-top: 12px; }
+  .glow { background: var(--orbit-600); border: 0; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-xs)"></div><div class="tok">--shadow-xs</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-sm)"></div><div class="tok">--shadow-sm</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-md)"></div><div class="tok">--shadow-md</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-lg)"></div><div class="tok">--shadow-lg</div></div>
+    <div class="item"><div class="box glow" style="box-shadow:var(--shadow-pop)"></div><div class="tok">--shadow-pop</div></div>
+  </div>
+</body>
+</html>

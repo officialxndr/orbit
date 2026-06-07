@@ -1,0 +1,30 @@
+<!-- @dsCard group="Colors" viewport="700x210" name="Entity spectrum" subtitle="The five linkable types — base + soft tint" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 20px 24px; }
+  .row { display: flex; gap: 12px; }
+  .ent { flex: 1; }
+  .chip { border-radius: var(--radius-md); padding: 12px 12px 14px; border-left: var(--border-accent) solid; box-shadow: var(--shadow-xs); }
+  .name { font-size: 13px; font-weight: 700; letter-spacing: var(--tracking-snug); }
+  .meta { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+  .dot { width: 14px; height: 14px; border-radius: 999px; display: inline-block; vertical-align: -2px; margin-right: 7px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <div class="ent"><div class="chip" style="background:var(--person-soft); border-color:var(--person)"><div class="name"><span class="dot" style="background:var(--person)"></span>Person</div><div class="meta">#E2613A</div></div></div>
+      <div class="ent"><div class="chip" style="background:var(--task-soft); border-color:var(--task)"><div class="name"><span class="dot" style="background:var(--task)"></span>Task</div><div class="meta">#2E73D8</div></div></div>
+      <div class="ent"><div class="chip" style="background:var(--routine-soft); border-color:var(--routine)"><div class="name"><span class="dot" style="background:var(--routine)"></span>Routine</div><div class="meta">#0E9C88</div></div></div>
+      <div class="ent"><div class="chip" style="background:var(--habit-soft); border-color:var(--habit)"><div class="name"><span class="dot" style="background:var(--habit)"></span>Habit</div><div class="meta">#7E54E0</div></div></div>
+      <div class="ent"><div class="chip" style="background:var(--project-soft); border-color:var(--project)"><div class="name"><span class="dot" style="background:var(--project)"></span>Project</div><div class="meta">#C68A12</div></div></div>
+    </div>
+  </div>
+</body>
+</html>

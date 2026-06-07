@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Orbit — Color tokens
+   A warm "paper" neutral base, a cosmic indigo brand ("Orbit"), and a
+   five-hue entity spectrum (Person / Task / Routine / Habit / Project) that
+   drives the colored type accents throughout the product.
+   ========================================================================== */
+
+:root {
+  /* --- Warm neutrals (paper) -------------------------------------------- */
+  --paper:            #FAF8F4;  /* app background */
+  --paper-sunk:       #F1ECE4;  /* recessed wells, grouped-list background */
+  --surface:          #FFFFFF;  /* cards, sheets */
+  --surface-2:        #FBF9F6;  /* subtly raised rows */
+
+  --ink-900:          #1B1A17;  /* strongest text, titles */
+  --ink-700:          #423E37;  /* body text */
+  --ink-500:          #6E6960;  /* secondary text */
+  --ink-400:          #948D81;  /* muted / placeholder */
+  --ink-300:          #B7B0A4;  /* disabled text */
+
+  --line:             #E9E3D9;  /* hairline borders, dividers */
+  --line-strong:      #D9D2C6;  /* stronger separators, input borders */
+  --fill:             #F2EDE5;  /* chips, inactive segments */
+  --fill-hover:       #EAE3D8;  /* hover on subtle fills */
+
+  /* --- Brand: Orbit indigo --------------------------------------------- */
+  --orbit-50:         #F4F3FD;
+  --orbit-100:        #E8E6FB;
+  --orbit-200:        #CFCBF6;
+  --orbit-400:        #6A62E8;
+  --orbit-500:        #574EE2;
+  --orbit-600:        #4B43D9;  /* primary */
+  --orbit-700:        #3A33B6;  /* pressed / hover-dark */
+  --orbit-800:        #2C268C;
+
+  /* --- Entity spectrum (each: base + soft tint) ------------------------ */
+  --person:           #E2613A;  --person-soft:  #FBEADF;  /* warm coral  */
+  --task:             #2E73D8;  --task-soft:    #E4EDFB;  /* clear blue  */
+  --routine:          #0E9C88;  --routine-soft: #DCF2EE;  /* deep teal   */
+  --habit:            #7E54E0;  --habit-soft:   #EEE7FB;  /* violet      */
+  --project:          #C68A12;  --project-soft: #F8EFD7;  /* amber gold  */
+
+  /* --- Streak / consistency heatmap ramp (violet) ---------------------- */
+  --heat-0:           #ECE7DE;  /* no activity */
+  --heat-1:           #DDD3F3;
+  --heat-2:           #BCA6EA;
+  --heat-3:           #9A78E2;
+  --heat-4:           #7E54E0;  /* full streak */
+
+  /* --- Semantic -------------------------------------------------------- */
+  --success:          #1F9D5B;  --success-soft: #DFF2E7;
+  --warning:          #D98A1A;  --warning-soft: #FBEEDA;
+  --danger:           #D4483B;  --danger-soft:  #FBE6E3;
+  --info:             #2E73D8;  --info-soft:    #E4EDFB;
+
+  /* --- Semantic aliases (use these in components) ---------------------- */
+  --text-strong:      var(--ink-900);
+  --text-body:        var(--ink-700);
+  --text-muted:       var(--ink-500);
+  --text-subtle:      var(--ink-400);
+  --text-disabled:    var(--ink-300);
+  --text-on-brand:    #FFFFFF;
+  --text-link:        var(--orbit-600);
+
+  --surface-page:     var(--paper);
+  --surface-card:     var(--surface);
+  --surface-raised:   var(--surface-2);
+  --surface-sunk:     var(--paper-sunk);
+
+  --border-default:   var(--line);
+  --border-strong:    var(--line-strong);
+
+  --accent:           var(--orbit-600);
+  --accent-hover:     var(--orbit-500);
+  --accent-pressed:   var(--orbit-700);
+  --accent-tint:      var(--orbit-100);
+  --focus-ring:       var(--orbit-400);
+}

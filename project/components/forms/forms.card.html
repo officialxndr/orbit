@@ -1,0 +1,62 @@
+<!-- @dsCard group="Components" viewport="700x290" name="Forms · Inputs & toggles" subtitle="Input, SearchBar, SegmentedControl, Switch, CheckCircle" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 22px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .row { display: flex; align-items: center; gap: 14px; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-subtle); text-transform: uppercase; letter-spacing: 0.1em; }
+  .sub { font-size: 13px; color: var(--text-muted); }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { Input, SearchBar, SegmentedControl, Switch, CheckCircle } = window.OrbitDesignSystem_f3fc09;
+  function Demo() {
+    const [seg, setSeg] = React.useState('all');
+    const [streak, setStreak] = React.useState(true);
+    const [def, setDef] = React.useState(false);
+    const [c1, setC1] = React.useState(true);
+    const [c2, setC2] = React.useState(false);
+    const [c3, setC3] = React.useState(false);
+    const [q, setQ] = React.useState('Sam');
+    return (
+      <div className="wrap">
+        <div className="stack">
+          <div className="lbl">Input</div>
+          <Input label="Title" value="Buy birthday gift" icon="pen-line" />
+          <div className="lbl">SearchBar</div>
+          <SearchBar value={q} onChange={(e)=>setQ(e.target.value)} onClear={()=>setQ('')} placeholder="Search people & items" />
+        </div>
+        <div className="stack">
+          <div className="lbl">SegmentedControl</div>
+          <SegmentedControl value={seg} onChange={setSeg}
+            options={[{value:'all',label:'All'},{value:'person',label:'People'},{value:'task',label:'Tasks'},{value:'habit',label:'Habits'}]} />
+          <div className="lbl" style={{marginTop:4}}>Switch · CheckCircle</div>
+          <div className="row"><Switch checked={streak} onChange={setStreak} color="var(--habit)" /><span className="sub">Track as streak</span></div>
+          <div className="row"><Switch checked={def} onChange={setDef} /><span className="sub">Use global default</span></div>
+          <div className="row">
+            <CheckCircle checked={c1} onChange={setC1} color="var(--task)" />
+            <CheckCircle checked={c2} onChange={setC2} color="var(--routine)" />
+            <CheckCircle checked={c3} onChange={setC3} color="var(--person)" />
+            <span className="sub">Completion</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

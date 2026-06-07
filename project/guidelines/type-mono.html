@@ -1,0 +1,29 @@
+<!-- @dsCard group="Type" viewport="700x180" name="Mono · JetBrains Mono" subtitle="Numerals, streaks, dates, micro-labels" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-mono); color: var(--text-strong); }
+  .wrap { padding: 20px 26px; display: flex; gap: 40px; align-items: center; }
+  .stat { text-align: center; }
+  .num { font-size: 46px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+  .cap { font-family: var(--font-sans); font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: var(--tracking-wider); margin-top: 6px; }
+  .list div { font-size: 13px; color: var(--text-body); margin: 5px 0; }
+  .list .k { color: var(--text-subtle); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="stat"><div class="num" style="color:var(--habit)">17</div><div class="cap">Day streak</div></div>
+    <div class="stat"><div class="num">21d</div><div class="cap">Since contact</div></div>
+    <div class="list">
+      <div><span class="k">DUE</span>&nbsp;&nbsp;09:00 · Jun 12</div>
+      <div><span class="k">RRULE</span>&nbsp;FREQ=WEEKLY;BYDAY=TU</div>
+      <div><span class="k">NEXT</span>&nbsp;in 3 days</div>
+    </div>
+  </div>
+</body>
+</html>

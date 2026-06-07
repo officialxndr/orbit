@@ -1,0 +1,28 @@
+<!-- @dsCard group="Type" viewport="700x300" name="Type scale" subtitle="2xs → 4xl, with token + px" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 18px 26px; }
+  .row { display: flex; align-items: baseline; gap: 16px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .tok { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); width: 150px; flex: none; }
+  .sample { font-weight: 600; letter-spacing: var(--tracking-snug); white-space: nowrap; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row"><span class="tok">--text-4xl · 48</span><span class="sample" style="font-size:34px;font-family:var(--font-display);font-weight:800;letter-spacing:-0.03em">Orbit</span></div>
+    <div class="row"><span class="tok">--text-2xl · 30</span><span class="sample" style="font-size:26px">Screen title</span></div>
+    <div class="row"><span class="tok">--text-lg · 20</span><span class="sample" style="font-size:20px">Card heading</span></div>
+    <div class="row"><span class="tok">--text-md · 17</span><span class="sample" style="font-size:17px">Emphasized row</span></div>
+    <div class="row"><span class="tok">--text-base · 15</span><span class="sample" style="font-size:15px;font-weight:400">Body & list rows</span></div>
+    <div class="row"><span class="tok">--text-sm · 13</span><span class="sample" style="font-size:13px;font-weight:500;color:var(--text-muted)">Secondary metadata</span></div>
+    <div class="row"><span class="tok">--text-xs · 12</span><span class="sample" style="font-size:12px;color:var(--text-subtle);text-transform:uppercase;letter-spacing:0.12em">Eyebrow label</span></div>
+  </div>
+</body>
+</html>

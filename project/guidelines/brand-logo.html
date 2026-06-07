@@ -1,0 +1,24 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="Logo & app icon" subtitle="Mark, wordmark, and icon on ink" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 26px 30px; display: flex; align-items: center; gap: 44px; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); }
+  .onink { background: var(--ink-900); padding: 18px 26px; border-radius: var(--radius-lg); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="cell"><img src="../assets/orbit-mark.svg" width="56" height="56"><div class="lbl">mark</div></div>
+    <div class="cell"><img src="../assets/orbit-wordmark.svg" height="40"><div class="lbl">wordmark</div></div>
+    <div class="cell"><img src="../assets/orbit-app-icon.svg" width="84" height="84" style="border-radius:20px"><div class="lbl">app icon</div></div>
+    <div class="cell"><div class="onink"><img src="../assets/orbit-wordmark-reversed.svg" height="34"></div><div class="lbl">reversed</div></div>
+  </div>
+</body>
+</html>

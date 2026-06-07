@@ -1,0 +1,27 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Radii" subtitle="Corner rounding scale" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 22px 26px; display: flex; gap: 16px; }
+  .item { text-align: center; flex: 1; }
+  .box { height: 64px; background: var(--fill); border: 1.5px solid var(--line-strong); }
+  .px { font-size: 12px; font-weight: 700; margin-top: 8px; }
+  .tok { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="item"><div class="box" style="border-radius:var(--radius-xs)"></div><div class="px">6</div><div class="tok">--radius-xs</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-sm)"></div><div class="px">10</div><div class="tok">--radius-sm</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-md)"></div><div class="px">14</div><div class="tok">--radius-md</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-lg)"></div><div class="px">18</div><div class="tok">--radius-lg</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-xl)"></div><div class="px">24</div><div class="tok">--radius-xl</div></div>
+    <div class="item"><div class="box" style="border-radius:var(--radius-pill)"></div><div class="px">pill</div><div class="tok">--radius-pill</div></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Semantic" subtitle="Success · Warning · Danger · Info, with soft tints" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 20px 24px; }
+  .row { display: flex; gap: 12px; }
+  .pair { flex: 1; display: flex; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-xs); height: 72px; }
+  .solid { flex: 0 0 46%; display: flex; align-items: flex-end; padding: 9px; color: #fff; }
+  .soft { flex: 1; display: flex; align-items: flex-end; padding: 9px; }
+  .name { font-size: 12.5px; font-weight: 700; }
+  .hex { font-family: var(--font-mono); font-size: 10px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <div class="pair"><div class="solid" style="background:var(--success)"><span class="name">Success</span></div><div class="soft" style="background:var(--success-soft)"><span class="hex" style="color:var(--success)">#1F9D5B</span></div></div>
+      <div class="pair"><div class="solid" style="background:var(--warning)"><span class="name">Warning</span></div><div class="soft" style="background:var(--warning-soft)"><span class="hex" style="color:var(--warning)">#D98A1A</span></div></div>
+      <div class="pair"><div class="solid" style="background:var(--danger)"><span class="name">Danger</span></div><div class="soft" style="background:var(--danger-soft)"><span class="hex" style="color:var(--danger)">#D4483B</span></div></div>
+      <div class="pair"><div class="solid" style="background:var(--info)"><span class="name">Info</span></div><div class="soft" style="background:var(--info-soft)"><span class="hex" style="color:var(--info)">#2E73D8</span></div></div>
+    </div>
+  </div>
+</body>
+</html>

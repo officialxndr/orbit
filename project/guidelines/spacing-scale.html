@@ -1,0 +1,29 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Spacing scale" subtitle="4px base grid" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 22px 26px; display: flex; align-items: flex-end; gap: 16px; }
+  .item { text-align: center; }
+  .bar { background: var(--orbit-200); border-radius: 4px 4px 0 0; width: 100%; }
+  .item .box { display: flex; align-items: flex-end; justify-content: center; height: 72px; }
+  .tok { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-top: 6px; }
+  .px { font-size: 12px; font-weight: 700; margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="wrap" id="w"></div>
+  <script>
+    const steps = [['1',4],['2',8],['3',12],['4',16],['5',20],['6',24],['7',32],['8',40],['9',48],['10',64]];
+    const w = document.getElementById('w');
+    steps.forEach(([n,px]) => {
+      w.insertAdjacentHTML('beforeend',
+        `<div class="item" style="width:${px+8}px"><div class="box"><div class="bar" style="height:${px}px"></div></div><div class="px">${px}</div><div class="tok">--space-${n}</div></div>`);
+    });
+  </script>
+</body>
+</html>

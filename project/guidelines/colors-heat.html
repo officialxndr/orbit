@@ -1,0 +1,43 @@
+<!-- @dsCard group="Colors" viewport="700x190" name="Streak heatmap" subtitle="Consistency ramp + calendar specimen" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; background: var(--surface-card); font-family: var(--font-sans); color: var(--text-strong); }
+  .wrap { padding: 20px 24px; display: flex; align-items: center; gap: 36px; }
+  .ramp { display: flex; gap: 8px; }
+  .step { width: 52px; height: 52px; border-radius: var(--radius-sm); display: flex; align-items: flex-end; padding: 6px; box-sizing: border-box; }
+  .step span { font-family: var(--font-mono); font-size: 10px; color: var(--ink-700); }
+  .step.f span { color: #fff; }
+  .cal { display: grid; grid-template-columns: repeat(14, 1fr); gap: 4px; }
+  .cal i { width: 14px; height: 14px; border-radius: 4px; }
+  .label { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; letter-spacing: var(--tracking-wider); text-transform: uppercase; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <div class="label">Ramp</div>
+      <div class="ramp">
+        <div class="step" style="background:var(--heat-0)"><span>0</span></div>
+        <div class="step" style="background:var(--heat-1)"><span>1</span></div>
+        <div class="step" style="background:var(--heat-2)"><span>2</span></div>
+        <div class="step f" style="background:var(--heat-3)"><span>3</span></div>
+        <div class="step f" style="background:var(--heat-4)"><span>4</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="label">14-day specimen</div>
+      <div class="cal" id="cal"></div>
+    </div>
+  </div>
+  <script>
+    const vals = [4,4,3,4,0,2,4,4,4,1,3,4,4,2, 4,3,4,4,4,0,4,4,2,4,4,4,3,4];
+    const cal = document.getElementById('cal');
+    vals.forEach(v => { const i = document.createElement('i'); i.style.background = `var(--heat-${v})`; cal.appendChild(i); });
+  </script>
+</body>
+</html>
