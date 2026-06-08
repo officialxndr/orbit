@@ -2,29 +2,49 @@ import React, { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button, EntityIcon, Icon, IconButton, Input, Switch } from '@/components';
+import {
+  Button,
+  EntityFields,
+  EntityIcon,
+  Icon,
+  IconButton,
+  Input,
+  buildEntityData,
+  buildReminderConfig,
+  initialFormState,
+  type EntityFormState,
+} from '@/components';
 import { ENTITY_META, ENTITY_ORDER } from '@/domain/entityMeta';
 import { useStore } from '@/store/useStore';
 import { useToast } from '@/store/useToast';
 import type { EntityType } from '@/domain/types';
 import { border, colors, font, radius, shadow, tracking } from '@/theme/theme';
+import { useThemeSync } from '@/theme/useTheme';
 
 export default function NewEntityScreen() {
+  useThemeSync();
   const router = useRouter();
   const addEntity = useStore((s) => s.addEntity);
   const showToast = useToast((s) => s.show);
   const insets = useSafeAreaInsets();
 
   const [type, setType] = useState<EntityType | null>(null);
-  const [title, setTitle] = useState('');
-  const [trackAsStreak, setTrackAsStreak] = useState(true);
+  const [form, setForm] = useState<EntityFormState>(() => initialFormState('task'));
+  const update = (patch: Partial<EntityFormState>) => setForm((f) => ({ ...f, ...patch }));
 
   const close = () => router.back();
+  const chooseType = (t: EntityType) => {
+    setForm(initialFormState(t));
+    setType(t);
+  };
 
   const onAdd = async () => {
     if (!type) return;
     const meta = ENTITY_META[type];
-    const entity = await addEntity({ type, title: title.trim() || `New ${meta.label}`, trackAsStreak });
+    const title = form.title.trim() || `New ${meta.label}`;
+    const data = buildEntityData(type, form);
+    const reminderConfig = buildReminderConfig(type, form);
+    const entity = await addEntity({ type, title, data, reminderConfig, trackAsStreak: form.trackAsStreak });
     showToast(`${entity.title} added`);
     close();
   };
@@ -48,7 +68,7 @@ export default function NewEntityScreen() {
                 return (
                   <Pressable
                     key={t}
-                    onPress={() => setType(t)}
+                    onPress={() => chooseType(t)}
                     style={[
                       { flexDirection: 'row', alignItems: 'center', gap: 13, padding: 12, borderRadius: radius.lg, backgroundColor: colors.surfaceCard, borderWidth: 1, borderColor: colors.borderDefault, borderLeftWidth: border.accent, borderLeftColor: m.color },
                       shadow.sm,
@@ -76,27 +96,19 @@ export default function NewEntityScreen() {
             <View style={{ gap: 16 }}>
               <Input
                 label="Title"
-                value={title}
-                onChangeText={setTitle}
+                value={form.title}
+                onChangeText={(v) => update({ title: v })}
                 autoFocus
                 icon="pen-line"
                 placeholder={type === 'person' ? 'e.g. Sam Rivera' : type === 'habit' ? 'e.g. Morning stretch' : 'e.g. Buy groceries'}
               />
 
-              {(type === 'habit' || type === 'routine') && (
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: colors.surfaceCard, borderWidth: 1, borderColor: colors.borderDefault, borderRadius: radius.md, paddingVertical: 12, paddingHorizontal: 14 }}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={{ fontFamily: font('sans', 600), fontSize: 14, color: colors.textStrong }}>Track as streak</Text>
-                    <Text style={{ fontFamily: font('sans', 400), fontSize: 12.5, color: colors.textMuted, marginTop: 2 }}>Gamify consistency</Text>
-                  </View>
-                  <Switch checked={trackAsStreak} onChange={setTrackAsStreak} color={colors.habit} />
-                </View>
-              )}
+              <EntityFields type={type} state={form} update={update} />
 
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7 }}>
                 <Icon name="bell" size={15} color={colors.textSubtle} />
                 <Text style={{ flex: 1, fontFamily: font('sans', 400), fontSize: 13, color: colors.textMuted }}>
-                  Reminder uses your global default — customize after saving.
+                  Fine-tune lead times and quiet hours on the reminder after saving.
                 </Text>
               </View>
 

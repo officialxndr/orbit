@@ -2,8 +2,6 @@ import React from 'react';
 import { View, type ViewStyle } from 'react-native';
 import { colors } from '@/theme/theme';
 
-const heat = [colors.heat0, colors.heat1, colors.heat2, colors.heat3, colors.heat4];
-
 export interface HeatmapProps {
   data: number[]; // intensities 0..4
   columns?: number;
@@ -14,6 +12,7 @@ export interface HeatmapProps {
 
 /** Consistency grid using the streak heat ramp. Wraps into `columns` columns. */
 export function Heatmap({ data, columns = 7, cell = 15, gap = 4, style }: HeatmapProps) {
+  const heat = [colors.heat0, colors.heat1, colors.heat2, colors.heat3, colors.heat4];
   const width = columns * cell + (columns - 1) * gap;
   return (
     <View style={[{ flexDirection: 'row', flexWrap: 'wrap', width, gap }, style]}>

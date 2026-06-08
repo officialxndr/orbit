@@ -19,8 +19,10 @@ import { useStore } from '@/store/useStore';
 import { buildToday, type PersonNudgeVM, type RowVM } from '@/domain/presenters';
 import { todayEyebrow } from '@/lib/datetime';
 import { colors, font } from '@/theme/theme';
+import { useThemeSync } from '@/theme/useTheme';
 
 export default function TodayScreen() {
+  useThemeSync();
   const router = useRouter();
   const entities = useStore((s) => s.entities);
   const now = useStore((s) => s.now);

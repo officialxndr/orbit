@@ -48,6 +48,8 @@ export interface StreakStats {
 
 export interface OrbitRepository {
   init(): Promise<void>;
+  /** Wipe all user data (entities, reminders, links, completions, contact log). Keeps settings/defaults. */
+  clearAll(): Promise<void>;
 
   // Entities
   listEntities(filter?: EntityFilter): Promise<Entity[]>;

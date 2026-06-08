@@ -9,11 +9,13 @@ import { useStore } from '@/store/useStore';
 import { ToastHost } from '@/components/Toast';
 import { configureNotifications, registerBackgroundSync } from '@/notifications';
 import { colors } from '@/theme/theme';
+import { useThemeStore } from '@/theme/useTheme';
 
 export default function RootLayout() {
   const [fontsLoaded] = useOrbitFonts();
   const ready = useStore((s) => s.ready);
   const bootstrap = useStore((s) => s.bootstrap);
+  const scheme = useThemeStore((s) => s.scheme);
 
   useEffect(() => {
     bootstrap();
@@ -28,7 +30,7 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <StatusBar style="dark" />
+        <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
         <Stack
           screenOptions={{
             headerShown: false,
@@ -37,6 +39,7 @@ export default function RootLayout() {
         >
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="entity/[id]" />
+          <Stack.Screen name="entity/edit/[id]" options={{ presentation: 'modal' }} />
           <Stack.Screen name="new" options={{ presentation: 'modal' }} />
           <Stack.Screen name="reminder/[rid]" options={{ presentation: 'modal' }} />
           <Stack.Screen name="settings/defaults" />

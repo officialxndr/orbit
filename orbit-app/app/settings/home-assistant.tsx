@@ -4,8 +4,10 @@ import { BackBar, Button, Card, Icon, Input, Screen } from '@/components';
 import { useToast } from '@/store/useToast';
 import { getHAConfig, saveHAConfig, testConnection } from '@/integrations/homeAssistant';
 import { colors, font } from '@/theme/theme';
+import { useThemeSync } from '@/theme/useTheme';
 
 export default function HomeAssistantScreen() {
+  useThemeSync();
   const showToast = useToast((s) => s.show);
   const [baseUrl, setBaseUrl] = useState('');
   const [token, setToken] = useState('');

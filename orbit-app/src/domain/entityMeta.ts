@@ -14,12 +14,14 @@ export interface EntityMeta {
   description: string;
 }
 
+// Base hues are theme-invariant; the soft tints change with the active scheme,
+// so `soft` is a live getter that reads the mutated `colors` at access time.
 export const ENTITY_META: Record<EntityType, EntityMeta> = {
-  person: { label: 'Person', color: colors.person, soft: colors.personSoft, icon: 'user-round', description: 'Someone to stay close to' },
-  task: { label: 'Task', color: colors.task, soft: colors.taskSoft, icon: 'circle-check', description: 'A one-off to-do' },
-  routine: { label: 'Routine', color: colors.routine, soft: colors.routineSoft, icon: 'repeat', description: 'Something on a schedule' },
-  habit: { label: 'Habit', color: colors.habit, soft: colors.habitSoft, icon: 'flame', description: 'Build a streak' },
-  project: { label: 'Project', color: colors.project, soft: colors.projectSoft, icon: 'folder', description: 'A goal with milestones' },
+  person: { label: 'Person', color: colors.person, get soft() { return colors.personSoft; }, icon: 'user-round', description: 'Someone to stay close to' },
+  task: { label: 'Task', color: colors.task, get soft() { return colors.taskSoft; }, icon: 'circle-check', description: 'A one-off to-do' },
+  routine: { label: 'Routine', color: colors.routine, get soft() { return colors.routineSoft; }, icon: 'repeat', description: 'Something on a schedule' },
+  habit: { label: 'Habit', color: colors.habit, get soft() { return colors.habitSoft; }, icon: 'flame', description: 'Build a streak' },
+  project: { label: 'Project', color: colors.project, get soft() { return colors.projectSoft; }, icon: 'folder', description: 'A goal with milestones' },
 };
 
 export const ENTITY_ORDER: EntityType[] = ['person', 'task', 'routine', 'habit', 'project'];

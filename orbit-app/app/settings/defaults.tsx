@@ -7,6 +7,7 @@ import { repository } from '@/data/sqliteRepository';
 import { DEFAULT_CONFIGS } from '@/domain/reminderConfig';
 import type { ReminderConfig } from '@/domain/types';
 import { colors, font } from '@/theme/theme';
+import { useThemeSync } from '@/theme/useTheme';
 
 const pad = (n: number) => n.toString().padStart(2, '0');
 
@@ -34,6 +35,7 @@ function Row({ label, children, border = true }: { label: string; children: Reac
 }
 
 export default function DefaultsScreen() {
+  useThemeSync();
   const setDefaultConfig = useStore((s) => s.setDefaultConfig);
   const showToast = useToast((s) => s.show);
 

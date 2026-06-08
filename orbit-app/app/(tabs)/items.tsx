@@ -16,6 +16,7 @@ import { useStore } from '@/store/useStore';
 import { toRowVM, type RowVM } from '@/domain/presenters';
 import type { EntityType } from '@/domain/types';
 import { colors, font } from '@/theme/theme';
+import { useThemeSync } from '@/theme/useTheme';
 
 const FILTERS: { value: string; label: string }[] = [
   { value: 'all', label: 'All' },
@@ -26,6 +27,7 @@ const FILTERS: { value: string; label: string }[] = [
 ];
 
 export default function ItemsScreen() {
+  useThemeSync();
   const router = useRouter();
   const entities = useStore((s) => s.entities);
   const now = useStore((s) => s.now);

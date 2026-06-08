@@ -4,15 +4,6 @@ import { colors, font } from '@/theme/theme';
 
 type Tone = 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'info';
 
-const tones: Record<Tone, { bg: string; fg: string }> = {
-  neutral: { bg: colors.fill, fg: colors.textMuted },
-  brand: { bg: colors.orbit100, fg: colors.orbit700 },
-  success: { bg: colors.successSoft, fg: colors.success },
-  warning: { bg: colors.warningSoft, fg: colors.warning },
-  danger: { bg: colors.dangerSoft, fg: colors.danger },
-  info: { bg: colors.infoSoft, fg: colors.info },
-};
-
 export interface BadgeProps {
   children: React.ReactNode;
   tone?: Tone;
@@ -22,6 +13,14 @@ export interface BadgeProps {
 
 /** Compact status / count label. */
 export function Badge({ children, tone = 'neutral', solid = false, style }: BadgeProps) {
+  const tones: Record<Tone, { bg: string; fg: string }> = {
+    neutral: { bg: colors.fill, fg: colors.textMuted },
+    brand: { bg: colors.orbit100, fg: colors.orbit700 },
+    success: { bg: colors.successSoft, fg: colors.success },
+    warning: { bg: colors.warningSoft, fg: colors.warning },
+    danger: { bg: colors.dangerSoft, fg: colors.danger },
+    info: { bg: colors.infoSoft, fg: colors.info },
+  };
   const t = tones[tone] ?? tones.neutral;
   return (
     <View

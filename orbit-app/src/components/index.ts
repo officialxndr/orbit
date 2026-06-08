@@ -12,6 +12,15 @@ export { ProgressBar } from './ProgressBar';
 export { SearchBar } from './SearchBar';
 export { SegmentedControl, type SegmentOption } from './SegmentedControl';
 export { Input } from './Input';
+export { DateField } from './DateField';
+export {
+  EntityFields,
+  initialFormState,
+  buildEntityData,
+  buildReminderConfig,
+  primaryReminderKind,
+  type EntityFormState,
+} from './EntityFields';
 export { StreakBadge } from './StreakBadge';
 export { Heatmap } from './Heatmap';
 export { ScreenHeader } from './ScreenHeader';

@@ -5,7 +5,10 @@
  */
 import type { TextStyle, ViewStyle } from 'react-native';
 
-export const palette = {
+export type Scheme = 'light' | 'dark';
+
+/** Raw palette: warm "paper" light theme. */
+const lightRaw = {
   // Warm neutrals (paper)
   paper: '#FAF8F4',
   paperSunk: '#F1ECE4',
@@ -62,34 +65,95 @@ export const palette = {
   info: '#2E73D8',
   infoSoft: '#E4EDFB',
   white: '#FFFFFF',
-} as const;
+};
 
-/** Semantic aliases — prefer these in components. */
-export const colors = {
-  ...palette,
+export type RawPalette = typeof lightRaw;
 
-  textStrong: palette.ink900,
-  textBody: palette.ink700,
-  textMuted: palette.ink500,
-  textSubtle: palette.ink400,
-  textDisabled: palette.ink300,
-  textOnBrand: palette.white,
-  textLink: palette.orbit600,
+/** Dark theme: warm near-black surfaces, light ink, brightened indigo, dark tints. */
+const darkRaw: RawPalette = {
+  ...lightRaw,
 
-  surfacePage: palette.paper,
-  surfaceCard: palette.surface,
-  surfaceRaised: palette.surface2,
-  surfaceSunk: palette.paperSunk,
+  paper: '#14130E',
+  paperSunk: '#0E0D09',
+  surface: '#1E1C16',
+  surface2: '#26231B',
 
-  borderDefault: palette.line,
-  borderStrong: palette.lineStrong,
+  ink900: '#F6F3EB',
+  ink700: '#DFD9CC',
+  ink500: '#A69D8C',
+  ink400: '#7E7667',
+  ink300: '#544E43',
 
-  accent: palette.orbit600,
-  accentHover: palette.orbit500,
-  accentPressed: palette.orbit700,
-  accentTint: palette.orbit100,
-  focusRing: palette.orbit400,
-} as const;
+  line: '#2B2922',
+  lineStrong: '#3B382F',
+  fill: '#26241D',
+  fillHover: '#302D24',
+
+  // Indigo brightened for dark surfaces; orbit100 becomes a dark tint and
+  // orbit700 a light on-tint foreground (it's used as text on accentTint).
+  orbit100: '#26244F',
+  orbit400: '#948DF2',
+  orbit500: '#8079EE',
+  orbit600: '#6E66EC',
+  orbit700: '#C5C0F4',
+
+  // Entity base hues stay vivid (legible on dark); soft tints go dark.
+  personSoft: '#3A241A',
+  taskSoft: '#16243C',
+  routineSoft: '#0F302A',
+  habitSoft: '#271B41',
+  projectSoft: '#352713',
+
+  heat0: '#26241D',
+
+  successSoft: '#12301F',
+  warningSoft: '#33260F',
+  dangerSoft: '#3A1E1A',
+  infoSoft: '#16243C',
+};
+
+/** Build semantic aliases from a raw palette. */
+function semantic(p: RawPalette) {
+  return {
+    ...p,
+    textStrong: p.ink900,
+    textBody: p.ink700,
+    textMuted: p.ink500,
+    textSubtle: p.ink400,
+    textDisabled: p.ink300,
+    textOnBrand: p.white,
+    textLink: p.orbit600,
+
+    surfacePage: p.paper,
+    surfaceCard: p.surface,
+    surfaceRaised: p.surface2,
+    surfaceSunk: p.paperSunk,
+
+    borderDefault: p.line,
+    borderStrong: p.lineStrong,
+
+    accent: p.orbit600,
+    accentHover: p.orbit500,
+    accentPressed: p.orbit700,
+    accentTint: p.orbit100,
+    focusRing: p.orbit400,
+  };
+}
+
+/**
+ * Live theme objects. These are mutated in place by `applyScheme`, so the ~250
+ * `colors.x` references across the app pick up the active scheme without any
+ * per-call-site changes — components just need to re-render (see useTheme).
+ */
+export const palette: RawPalette = { ...lightRaw };
+export const colors = semantic(lightRaw);
+
+/** Swap the live palette/colors to the given scheme (mutates in place). */
+export function applyScheme(scheme: Scheme): void {
+  const raw = scheme === 'dark' ? darkRaw : lightRaw;
+  Object.assign(palette, raw);
+  Object.assign(colors, semantic(raw));
+}
 
 /** 4px-grid spacing scale. */
 export const space = {

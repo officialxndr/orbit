@@ -37,6 +37,15 @@ class SqliteRepository implements OrbitRepository {
     await runMigrations();
   }
 
+  /** Wipe all user data. Entities are deleted last so FTS sync triggers fire. Settings/defaults are kept. */
+  async clearAll(): Promise<void> {
+    db.delete(reminders).run();
+    db.delete(links).run();
+    db.delete(completions).run();
+    db.delete(contactLog).run();
+    db.delete(entities).run();
+  }
+
   // ---- Entities ---------------------------------------------------------
   async listEntities(filter?: EntityFilter): Promise<Entity[]> {
     const conds = [];

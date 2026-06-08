@@ -4,6 +4,7 @@ import { Tabs } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Icon, type IconName } from '@/components/Icon';
 import { colors, font } from '@/theme/theme';
+import { useThemeSync } from '@/theme/useTheme';
 
 function tabIcon(name: IconName) {
   return ({ color, focused }: { color: ColorValue; focused: boolean }) => (
@@ -12,6 +13,7 @@ function tabIcon(name: IconName) {
 }
 
 export default function TabsLayout() {
+  useThemeSync();
   const insets = useSafeAreaInsets();
   return (
     <Tabs

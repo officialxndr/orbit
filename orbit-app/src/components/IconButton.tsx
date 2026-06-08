@@ -10,13 +10,6 @@ type Size = 'sm' | 'md' | 'lg';
 const sizes: Record<Size, number> = { sm: 32, md: 40, lg: 48 };
 const iconSizes: Record<Size, number> = { sm: 17, md: 20, lg: 22 };
 
-const variants: Record<Variant, { bg: string; fg: string; border: string }> = {
-  solid: { bg: colors.accent, fg: colors.white, border: 'transparent' },
-  soft: { bg: colors.fill, fg: colors.textBody, border: 'transparent' },
-  ghost: { bg: 'transparent', fg: colors.textMuted, border: 'transparent' },
-  outline: { bg: colors.surfaceCard, fg: colors.textBody, border: colors.borderStrong },
-};
-
 export interface IconButtonProps {
   icon: IconName;
   variant?: Variant;
@@ -30,6 +23,12 @@ export interface IconButtonProps {
 
 /** Square/round icon-only control for toolbars and headers. */
 export function IconButton({ icon, variant = 'ghost', size = 'md', round = false, disabled = false, onPress, accessibilityLabel, style }: IconButtonProps) {
+  const variants: Record<Variant, { bg: string; fg: string; border: string }> = {
+    solid: { bg: colors.accent, fg: colors.white, border: 'transparent' },
+    soft: { bg: colors.fill, fg: colors.textBody, border: 'transparent' },
+    ghost: { bg: 'transparent', fg: colors.textMuted, border: 'transparent' },
+    outline: { bg: colors.surfaceCard, fg: colors.textBody, border: colors.borderStrong },
+  };
   const dim = sizes[size];
   const v = variants[variant];
   const { scale, onPressIn, onPressOut } = usePressScale(0.9);

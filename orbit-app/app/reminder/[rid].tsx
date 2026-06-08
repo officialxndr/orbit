@@ -8,6 +8,7 @@ import { useToast } from '@/store/useToast';
 import { DEFAULT_CONFIGS, resolveConfig } from '@/domain/reminderConfig';
 import type { ReminderConfig } from '@/domain/types';
 import { colors, font, radius, tracking } from '@/theme/theme';
+import { useThemeSync } from '@/theme/useTheme';
 
 const pad = (n: number) => n.toString().padStart(2, '0');
 
@@ -35,6 +36,7 @@ function FieldRow({ label, disabled, children, border = true }: { label: string;
 }
 
 export default function ReminderConfigScreen() {
+  useThemeSync();
   const { rid } = useLocalSearchParams<{ rid: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();

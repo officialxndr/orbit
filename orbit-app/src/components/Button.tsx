@@ -13,13 +13,6 @@ const sizes: Record<Size, { height: number; px: number; fontSize: number; gap: n
   lg: { height: 52, px: 24, fontSize: 16, gap: 9, icon: 20, radius: radius.md },
 };
 
-const variants: Record<Variant, { bg: string; fg: string; border: string; shadow?: ViewStyle }> = {
-  primary: { bg: colors.accent, fg: colors.textOnBrand, border: 'transparent', shadow: shadow.sm },
-  secondary: { bg: colors.surfaceCard, fg: colors.textStrong, border: colors.borderStrong, shadow: shadow.xs },
-  ghost: { bg: 'transparent', fg: colors.textBody, border: 'transparent' },
-  danger: { bg: colors.danger, fg: colors.white, border: 'transparent', shadow: shadow.sm },
-};
-
 export interface ButtonProps {
   children?: React.ReactNode;
   variant?: Variant;
@@ -43,9 +36,17 @@ export function Button({
   onPress,
   style,
 }: ButtonProps) {
+  const variants: Record<Variant, { bg: string; fg: string; border: string; shadow?: ViewStyle }> = {
+    primary: { bg: colors.accent, fg: colors.textOnBrand, border: 'transparent', shadow: shadow.sm },
+    secondary: { bg: colors.surfaceCard, fg: colors.textStrong, border: colors.borderStrong, shadow: shadow.xs },
+    ghost: { bg: 'transparent', fg: colors.textBody, border: 'transparent' },
+    danger: { bg: colors.danger, fg: colors.white, border: 'transparent', shadow: shadow.sm },
+  };
   const s = sizes[size];
   const v = variants[variant];
   const { scale, onPressIn, onPressOut } = usePressScale(0.97);
+  const childArray = React.Children.toArray(children);
+  const allText = childArray.length > 0 && childArray.every((c) => typeof c === 'string' || typeof c === 'number');
   return (
     <Pressable onPress={disabled ? undefined : onPress} onPressIn={onPressIn} onPressOut={onPressOut} disabled={disabled} style={fullWidth ? { width: '100%' } : undefined}>
       <Animated.View
@@ -70,7 +71,7 @@ export function Button({
         ]}
       >
         {iconLeft && <Icon name={iconLeft} size={s.icon} color={v.fg} strokeWidth={2.2} />}
-        {typeof children === 'string' ? (
+        {allText ? (
           <Text style={{ color: v.fg, fontFamily: font('sans', 600), fontSize: s.fontSize, letterSpacing: tracking.snug }}>{children}</Text>
         ) : (
           children

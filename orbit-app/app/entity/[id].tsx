@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Linking, Pressable, Text, View } from 'react-native';
+import { Alert, Linking, Pressable, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import {
   Avatar,
   BackBar,
+  BottomSheet,
   Button,
   Card,
   EntityRow,
@@ -24,10 +25,55 @@ import { toRowVM } from '@/domain/presenters';
 import { birthdayDisplay, daysSince, formatMonthDay, startOfDay } from '@/lib/datetime';
 import type { Completion, Entity, Handle } from '@/domain/types';
 import { colors, font, radius, tracking } from '@/theme/theme';
+import { useThemeSync } from '@/theme/useTheme';
 
 const DAY = 86400000;
 
+function MenuRow({ icon, label, onPress, destructive }: { icon: string; label: string; onPress: () => void; destructive?: boolean }) {
+  const color = destructive ? colors.danger : colors.textStrong;
+  return (
+    <Pressable onPress={onPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 15, paddingHorizontal: 4 }}>
+      <Icon name={icon} size={20} color={color} />
+      <Text style={{ fontFamily: font('sans', 600), fontSize: 16, color }}>{label}</Text>
+    </Pressable>
+  );
+}
+
+/** Title bar with a working ⋯ overflow menu (Edit / Delete). */
+function EntityHeader({ title, entityId, entityTitle }: { title: string; entityId: string; entityTitle: string }) {
+  const router = useRouter();
+  const deleteEntity = useStore((s) => s.deleteEntity);
+  const [menu, setMenu] = useState(false);
+
+  const onEdit = () => {
+    setMenu(false);
+    router.push(`/entity/edit/${entityId}`);
+  };
+  const onDelete = () => {
+    setMenu(false);
+    Alert.alert(
+      `Delete ${entityTitle}?`,
+      'This permanently removes this item and its reminders. This cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', style: 'destructive', onPress: async () => { await deleteEntity(entityId); router.back(); } },
+      ],
+    );
+  };
+
+  return (
+    <>
+      <BackBar title={title} onMore={() => setMenu(true)} />
+      <BottomSheet visible={menu} onClose={() => setMenu(false)}>
+        <MenuRow icon="square-pen" label="Edit" onPress={onEdit} />
+        <MenuRow icon="trash-2" label="Delete" destructive onPress={onDelete} />
+      </BottomSheet>
+    </>
+  );
+}
+
 export default function EntityDetailScreen() {
+  useThemeSync();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const showToast = useToast((s) => s.show);
@@ -161,7 +207,7 @@ export default function EntityDetailScreen() {
 
     return (
       <Screen contentPaddingBottom={48}>
-        <BackBar title="Person" />
+        <EntityHeader title="Person" entityId={entity.id} entityTitle={entity.title} />
         <View style={{ alignItems: 'center', gap: 10, paddingTop: 8, paddingBottom: 18 }}>
           <Avatar name={entity.title} size={76} />
           <Text style={{ fontFamily: font('display', 800), fontSize: 26, letterSpacing: tracking.tight, color: colors.textStrong }}>
@@ -241,7 +287,7 @@ export default function EntityDetailScreen() {
     const done = Boolean(doneToday[entity.id]);
     return (
       <Screen contentPaddingBottom={48}>
-        <BackBar title={meta.label} />
+        <EntityHeader title={meta.label} entityId={entity.id} entityTitle={entity.title} />
         {TypeHeader}
 
         <Card style={{ marginBottom: 16 }}>
@@ -290,7 +336,7 @@ export default function EntityDetailScreen() {
     const done = Boolean(doneToday[entity.id]);
     return (
       <Screen contentPaddingBottom={48}>
-        <BackBar title={meta.label} />
+        <EntityHeader title={meta.label} entityId={entity.id} entityTitle={entity.title} />
         {TypeHeader}
         <Card style={{ marginBottom: 16 }}>
           <Text style={{ fontFamily: font('sans', 700), fontSize: 14, color: colors.textStrong }}>Schedule</Text>
@@ -313,7 +359,7 @@ export default function EntityDetailScreen() {
     const due = entity.data.due;
     return (
       <Screen contentPaddingBottom={48}>
-        <BackBar title={meta.label} />
+        <EntityHeader title={meta.label} entityId={entity.id} entityTitle={entity.title} />
         {TypeHeader}
         <Card style={{ marginBottom: 16 }}>
           <Text style={{ fontFamily: font('sans', 700), fontSize: 14, color: colors.textStrong }}>Due date</Text>

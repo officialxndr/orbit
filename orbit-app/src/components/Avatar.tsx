@@ -2,8 +2,6 @@ import React from 'react';
 import { Text, View, type ViewStyle } from 'react-native';
 import { colors, font } from '@/theme/theme';
 
-const palette = [colors.person, colors.task, colors.routine, colors.habit, colors.project, colors.orbit600];
-const softs = [colors.personSoft, colors.taskSoft, colors.routineSoft, colors.habitSoft, colors.projectSoft, colors.orbit100];
 const dims = { xs: 26, sm: 32, md: 40, lg: 56 } as const;
 
 function hash(str = ''): number {
@@ -27,6 +25,8 @@ export interface AvatarProps {
 
 /** Initials disc; color derived from the name (for People). */
 export function Avatar({ name = '', size = 'md', color, style }: AvatarProps) {
+  const palette = [colors.person, colors.task, colors.routine, colors.habit, colors.project, colors.orbit600];
+  const softs = [colors.personSoft, colors.taskSoft, colors.routineSoft, colors.habitSoft, colors.projectSoft, colors.orbit100];
   const d = typeof size === 'number' ? size : dims[size];
   const idx = hash(name) % palette.length;
   const fg = color ?? palette[idx];

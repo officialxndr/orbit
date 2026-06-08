@@ -6,8 +6,8 @@
  */
 import { create } from 'zustand';
 import { repository } from '@/data/sqliteRepository';
-import { seedDatabase } from '@/domain/seed';
 import { syncNotifications } from '@/notifications';
+import { useThemeStore } from '@/theme/useTheme';
 import type { PresentCtx } from '@/domain/presenters';
 import type { StreakStats } from '@/data/repository';
 import type {
@@ -25,6 +25,19 @@ export interface AddEntityInput {
   title: string;
   data?: EntityData;
   trackAsStreak?: boolean;
+  /** Optional per-item config applied to the type's primary reminder (cadence, recurrence). */
+  reminderConfig?: ReminderConfig | null;
+}
+
+/** The reminder a type's date/cadence settings attach to. */
+function primaryReminderKind(type: EntityType): ReminderKind {
+  switch (type) {
+    case 'person': return 'stay_in_touch';
+    case 'task': return 'date';
+    case 'routine':
+    case 'habit': return 'recurring';
+    case 'project': return 'milestone';
+  }
 }
 
 interface OrbitState {
@@ -47,6 +60,7 @@ interface OrbitState {
   addEntity: (input: AddEntityInput) => Promise<Entity>;
   updateEntity: (id: string, patch: Partial<Pick<Entity, 'title' | 'notes' | 'data'>>) => Promise<void>;
   deleteEntity: (id: string) => Promise<void>;
+  clearAllData: () => Promise<void>;
   updateReminder: (id: string, patch: { config?: ReminderConfig; usesDefault?: boolean; enabled?: boolean }) => Promise<void>;
   setDefaultConfig: (kind: ReminderKind, config: ReminderConfig) => Promise<void>;
 }
@@ -79,7 +93,7 @@ export const useStore = create<OrbitState>((set, get) => ({
 
   async bootstrap() {
     await repository.init();
-    await seedDatabase(repository);
+    await useThemeStore.getState().init();
     await get().refresh();
     set({ ready: true });
     // Sync the OS notification queue in the background; never block startup on it.
@@ -155,8 +169,16 @@ export const useStore = create<OrbitState>((set, get) => ({
       if (!data.schedule) data.schedule = 'Daily';
     }
     const entity = await repository.createEntity({ type: input.type, title: input.title, data });
+    const primaryKind = primaryReminderKind(input.type);
+    const customConfig = input.reminderConfig;
     for (const r of defaultRemindersFor(input.type, data)) {
-      await repository.createReminder({ entityId: entity.id, kind: r.kind, usesDefault: true });
+      const applyCustom = customConfig && r.kind === primaryKind;
+      await repository.createReminder({
+        entityId: entity.id,
+        kind: r.kind,
+        usesDefault: !applyCustom,
+        config: applyCustom ? customConfig : {},
+      });
     }
     await get().refresh();
     syncNotifications().catch(() => {});
@@ -171,6 +193,12 @@ export const useStore = create<OrbitState>((set, get) => ({
 
   async deleteEntity(id) {
     await repository.deleteEntity(id);
+    await get().refresh();
+    syncNotifications().catch(() => {});
+  },
+
+  async clearAllData() {
+    await repository.clearAll();
     await get().refresh();
     syncNotifications().catch(() => {});
   },
